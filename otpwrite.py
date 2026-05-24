@@ -81,34 +81,7 @@ def sr_write(csb_mode):
 
 # --- Main Execution ---
 try:
-    time.sleep(10)
-    # Example usage:  Enable chip select
-    combos_100k = { '100%':{'PWM_EN':0,'PA':1},
-               '50%':{'PWM_EN':1,'PA':8},
-               '25%':{'PWM_EN':1,'PA':4},
-               '12p5%':{'PWM_EN':1,'PA':2}
-        }
-    combos_400k = { '100%':{'PWM_EN':0,'PA':1},
-               '50%':{'PWM_EN':1,'PA':2},
-               '25%':{'PWM_EN':1,'PA':1}
-                    }
-    for clock in range(1,2):
-        print(time.time())
-        sr_fields[17] = [0b10000,0b00100][clock]
-        combos = [combos_100k,combos_400k][clock]
-        for power in [[6,1]]:#,[6,1]]:
-            sr_fields[16] = power[0]
-            #sr_fields[67] = power[1]
-            for i in combos:
-                sr_fields[24] = combos[i]['PWM_EN']
-                sr_fields[22] = combos[i]['PA']
-                print(time.time())
-                sr_write(1)   # csb_mode = 0: chip select active
-                print(time.time())
-                time.sleep(150)
-    print("hit stop now")
-    print("\a")
-#     sr_write(1)
+    sr_write(1)
 except KeyboardInterrupt:
     print("Program terminated by user.")
 
